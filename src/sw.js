@@ -1,4 +1,4 @@
-var CACHE_NAME = '2020-09-07 15:00';
+var CACHE_NAME = '2020-11-05 22:20';
 var urlsToCache = [
   '/kanji-siritori/',
   '/kanji-siritori/2/',
@@ -6,7 +6,6 @@ var urlsToCache = [
   '/kanji-siritori/index.js',
   '/kanji-siritori/2.js',
   '/kanji-siritori/3.js',
-  '/kanji-siritori/index.json',
   '/kanji-siritori/2.json',
   '/kanji-siritori/3.json',
   'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css',
