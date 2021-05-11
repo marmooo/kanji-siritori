@@ -1,4 +1,4 @@
-var CACHE_NAME = '2020-11-23 11:20';
+var CACHE_NAME = '2021-05-12 09:00';
 var urlsToCache = [
   '/kanji-siritori/',
   '/kanji-siritori/2/',
@@ -6,7 +6,7 @@ var urlsToCache = [
   '/kanji-siritori/2.js',
   '/kanji-siritori/2.json',
   '/kanji-siritori/3.json',
-  'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css',
 ];
 
 self.addEventListener('install', function(event) {
