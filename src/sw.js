@@ -1,4 +1,4 @@
-var CACHE_NAME = '2021-06-07 00:05';
+var CACHE_NAME = '2021-06-19 19:00';
 var urlsToCache = [
   '/kanji-siritori/',
   '/kanji-siritori/2/',
@@ -6,6 +6,7 @@ var urlsToCache = [
   '/kanji-siritori/2.js',
   '/kanji-siritori/2.json',
   '/kanji-siritori/3.json',
+  '/kanji-siritori/favicon/original.svg',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css',
 ];
 
