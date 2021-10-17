@@ -79,7 +79,7 @@ function calcReply() {
       const hinted = tds[y].classList.contains("table-secondary");
       const pos = meiro[x][y];
       if (pos > 0 && (selected || hinted)) {
-        reply[pos - 1] = tds[y].innerText;
+        reply[pos - 1] = tds[y].textContent;
       }
     }
   }
@@ -99,7 +99,7 @@ function findMeiroIndex(n) {
 
 function prependIdiomLink(idiom, correct) {
   const a = document.createElement("a");
-  a.innerText = idiom;
+  a.textContent = idiom;
   a.href = "https://www.google.com/search?q=" + idiom + "とは";
   a.target = "_blank";
   a.rel = "noopener noreferer";
@@ -122,7 +122,7 @@ function showSolved(reply, hinted) {
         if (k == idiom.length - 1) {
           prependIdiomLink(idiom, true);
           score += idiom.length;
-          document.getElementById("score").innerText = score;
+          document.getElementById("score").textContent = score;
         }
         processed[i] = true;
       } else {
@@ -169,28 +169,28 @@ function showAnswer() {
   }
   const startButton = document.getElementById("startButton");
   startButton.classList.remove("d-none");
-  startButton.innerText = "スタート";
+  startButton.textContent = "スタート";
   const answerButton = document.getElementById("answerButton");
   answerButton.classList.add("d-none");
 }
 
 function _getNeighborText(trs, x, y, direction) {
-  let text = trs[x].children[y].innerText;
+  let text = trs[x].children[y].textContent;
   if (direction == 1) {
     if (meiro[x - 1][y] != 0) {
-      text += trs[x - 1].children[y].innerText;
+      text += trs[x - 1].children[y].textContent;
     }
   } else if (direction == 2) {
     if (meiro[x + 1][y] != 0) {
-      text += trs[x + 1].children[y].innerText;
+      text += trs[x + 1].children[y].textContent;
     }
   } else if (direction == 3) {
     if (meiro[x][y - 1] != 0) {
-      text += trs[x].children[y - 1].innerText;
+      text += trs[x].children[y - 1].textContent;
     }
   } else {
     if (meiro[x][y + 1] != 0) {
-      text += trs[x].children[y + 1].innerText;
+      text += trs[x].children[y + 1].textContent;
     }
   }
   return text;
@@ -198,16 +198,16 @@ function _getNeighborText(trs, x, y, direction) {
 
 function _setNeighborText(trs, x, y, direction, text, isAnswer) {
   if (!isAnswer) {
-    trs[x].children[y].innerText = text[0];
+    trs[x].children[y].textContent = text[0];
   }
   if (direction == 1) {
-    trs[x - 1].children[y].innerText = text[1];
+    trs[x - 1].children[y].textContent = text[1];
   } else if (direction == 2) {
-    trs[x + 1].children[y].innerText = text[1];
+    trs[x + 1].children[y].textContent = text[1];
   } else if (direction == 3) {
-    trs[x].children[y - 1].innerText = text[1];
+    trs[x].children[y - 1].textContent = text[1];
   } else {
-    trs[x].children[y + 1].innerText = text[1];
+    trs[x].children[y + 1].textContent = text[1];
   }
 }
 
@@ -245,7 +245,7 @@ function startGame() {
   generateGame();
   const startButton = document.getElementById("startButton");
   startButton.classList.add("d-none");
-  startButton.innerText = "やり直し";
+  startButton.textContent = "やり直し";
   const answerButton = document.getElementById("answerButton");
   answerButton.classList.remove("d-none");
 }
@@ -444,7 +444,7 @@ function generateGame() {
     meiroNode.appendChild(tr);
     for (let y = 0; y < size; y++) {
       const td = document.createElement("td");
-      td.innerText = words[getRandomInt(0, words.length)];
+      td.textContent = words[getRandomInt(0, words.length)];
       tr.appendChild(td);
       td.onclick = function () {
         this.classList.toggle("table-primary");
@@ -458,7 +458,7 @@ function generateGame() {
     const idx = findMeiroIndex(i);
     const idiom = idioms[j][k];
     const td = trs[Math.floor(idx / size)].children[idx % size];
-    td.innerText = idiom;
+    td.textContent = idiom;
     if (i == 1) {
       td.classList.add("table-secondary");
     }

@@ -1,4 +1,4 @@
-var CACHE_NAME = '2021-10-15 20:33';
+var CACHE_NAME = '2021-10-17 13:35';
 var urlsToCache = [
   "/kanji-siritori/",
   "/kanji-siritori/2/",
