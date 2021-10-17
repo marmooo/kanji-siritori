@@ -1,4 +1,4 @@
-var CACHE_NAME = '2021-10-17 13:35';
+var CACHE_NAME = '2021-10-17 13:42';
 var urlsToCache = [
   "/kanji-siritori/",
   "/kanji-siritori/2/",
@@ -6,7 +6,7 @@ var urlsToCache = [
   "/kanji-siritori/2.json",
   "/kanji-siritori/3.json",
   "/kanji-siritori/favicon/original.svg",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css",
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
 ];
 
 self.addEventListener("install", function (event) {
