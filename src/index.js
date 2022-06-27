@@ -446,8 +446,8 @@ function generateGame() {
       const td = document.createElement("td");
       td.textContent = words[getRandomInt(0, words.length)];
       tr.appendChild(td);
-      td.onclick = function () {
-        this.classList.toggle("table-primary");
+      td.onclick = () => {
+        td.classList.toggle("table-primary");
       };
     }
   }
@@ -472,7 +472,7 @@ function generateGame() {
 }
 
 function resizeFontSize(node) {
-  const meiroSize = document.getElementById("meiroOuter").offsetWidth;
+  const meiroSize = document.getElementById("masu").offsetWidth;
   const margin = 1.2;  // 小さすぎると overflow で表示が崩れる
   const padding = remSize * 5;
   const border = 11;
@@ -550,7 +550,7 @@ function getIdioms() {
 function _initGame() {
   const urls = ["/kanji-siritori/2.json", "/kanji-siritori/3.json"];
   Promise.all(urls.map((url) => fetch(url).then((response) => response.json())))
-    .then(function (results) {
+    .then((results) => {
       results.slice(1).forEach((result) => {
         for (let i = 0; i < result.length; i++) {
           const tmpSiritori = results[0][i];
@@ -589,7 +589,7 @@ function _initGame2() {
 
 const meiroObj = document.getElementById("meiro");
 resizeFontSize(meiroObj);
-window.addEventListener("resize", function () {
+window.addEventListener("resize", () => {
   resizeFontSize(meiroObj);
 });
 
@@ -597,12 +597,14 @@ document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
 document.getElementById("startButton").onclick = startGame;
 document.getElementById("answerButton").onclick = showAnswer;
 document.getElementById("hintButton").onclick = showHint;
-document.getElementById("levelOption").addEventListener("change", function () {
-  level = this.selectedIndex;
+document.getElementById("levelOption").addEventListener("change", (event) => {
+  const obj = event.target;
+  level = obj.selectedIndex;
   idioms = getIdioms();
-  words = wordsList[this.selectedIndex];
+  words = wordsList[obj.selectedIndex];
   startGame();
 });
-document.getElementById("courseOption").addEventListener("change", function () {
-  location.href = this.options[this.selectedIndex].value;
+document.getElementById("courseOption").addEventListener("change", (event) => {
+  const obj = event.target;
+  location.href = obj.options[obj.selectedIndex].value;
 });
