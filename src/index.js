@@ -36,7 +36,6 @@ const w5 = w5_.concat(w4);
 const w6 = w6_.concat(w5);
 const w7 = w7_.concat(w6);
 const w8 = w8_.concat(w7);
-let siritoriList;
 const wordsList = [w1, w1, w2, w3, w4, w5, w6, w7, w8, w8];
 const size = 10;
 const meiro = new Array(12);
@@ -46,13 +45,13 @@ let processed;
 let idioms;
 let words = w4;
 let level = 4;
+loadConfig();
 
 function loadConfig() {
   if (localStorage.getItem("darkMode") == 1) {
     document.documentElement.dataset.theme = "dark";
   }
 }
-loadConfig();
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -474,7 +473,7 @@ function generateGame() {
 
 function resizeFontSize(node) {
   const meiroSize = document.getElementById("masu").offsetWidth;
-  const margin = 1.2;  // 小さすぎると overflow で表示が崩れる
+  const margin = 1.2; // 小さすぎると overflow で表示が崩れる
   const padding = remSize * 5;
   const border = 11;
   const fontSize = (meiroSize - padding - border) / 12 / margin;
@@ -492,11 +491,13 @@ function toggleDarkMode() {
 }
 
 function generateSiritoriCandidates(level) {
+  const course = document.getElementById("courseOption").selectedIndex;
+  const target = problems[course][level];
   const candidates = {};
   let from = level - 1;
   if (from < 0) from = 0;
   for (let i = from; i < level; i++) {
-    for (const [aiueo, idioms] of Object.entries(siritoriList[level])) {
+    for (const [aiueo, idioms] of Object.entries(target)) {
       if (candidates[aiueo]) {
         const newIdioms = candidates[aiueo].concat(idioms);
         candidates[aiueo] = newIdioms;
@@ -509,7 +510,6 @@ function generateSiritoriCandidates(level) {
 }
 
 function getIdioms() {
-  // const siritori = siritoriList[level];
   const siritori = generateSiritoriCandidates(level);
   const aiueos = Object.keys(siritori);
   let aiueo = aiueos[getRandomInt(0, aiueos.length)];
@@ -548,45 +548,39 @@ function getIdioms() {
   return list;
 }
 
-function _initGame() {
+function fetchData() {
   const urls = ["/kanji-siritori/2.json", "/kanji-siritori/3.json"];
-  Promise.all(urls.map((url) => fetch(url).then((response) => response.json())))
-    .then((results) => {
-      results.slice(1).forEach((result) => {
-        for (let i = 0; i < result.length; i++) {
-          const tmpSiritori = results[0][i];
-          for (const [aiueo, tmpIdioms] of Object.entries(result[i])) {
-            if (tmpSiritori[aiueo]) {
-              tmpSiritori[aiueo] = tmpSiritori[aiueo].concat(tmpIdioms);
-            } else {
-              tmpSiritori[aiueo] = tmpIdioms;
-            }
-          }
-        }
-        siritoriList = results[0];
-        idioms = getIdioms();
-        generateGame();
-        while (solvedPanel.firstChild) {
-          solvedPanel.removeChild(solvedPanel.firstChild);
-        }
-        showAnswer();
-      });
+  return Promise.all(urls.map((url) =>
+    fetch(url)
+      .then((response) => response.json())
+  ))
+    .then((data) => {
+      problems.push(data[0]);
+      problems.push(data[1]);
+      initGame();
     });
 }
 
-function _initGame2() {
-  fetch("/kanji-siritori/2.json")
-    .then((response) => response.json())
-    .then((data) => {
-      siritoriList = data;
-      idioms = getIdioms();
-      generateGame();
-      while (solvedPanel.firstChild) {
-        solvedPanel.removeChild(solvedPanel.firstChild);
+function initGame() {
+  for (let i = 0; i < problems[0].length; i++) {
+    for (const [aiueo, tmpIdioms] of Object.entries(problems[0][i])) {
+      if (problems[1][i][aiueo]) {
+        problems[1][i][aiueo].push(...tmpIdioms);
+      } else {
+        problems[1][i][aiueo] = tmpIdioms;
       }
-      showAnswer();
-    });
+    }
+  }
+  idioms = getIdioms();
+  generateGame();
+  while (solvedPanel.firstChild) {
+    solvedPanel.removeChild(solvedPanel.firstChild);
+  }
+  showAnswer();
 }
+
+const problems = [];
+fetchData();
 
 const meiroObj = document.getElementById("meiro");
 resizeFontSize(meiroObj);
@@ -604,8 +598,4 @@ document.getElementById("levelOption").addEventListener("change", (event) => {
   idioms = getIdioms();
   words = wordsList[obj.selectedIndex];
   startGame();
-});
-document.getElementById("courseOption").addEventListener("change", (event) => {
-  const obj = event.target;
-  location.href = obj.options[obj.selectedIndex].value;
 });

@@ -36,7 +36,7 @@
       #masu { width:100%; max-height:calc(100vh - 140px); aspect-ratio:1/1; }
       #table { height:100%; table-layout:fixed; }
       #meiro { line-height:1.1; touch-action:manipulation; }
-      td { padding: 0.25rem !important; }
+      td { padding: 0.25rem !important; cursor:pointer; }
       html[data-theme="dark"] { filter: invert(1) hue-rotate(180deg) brightness(1.5); }
       @-moz-document url-prefix() { html[data-theme="dark"] { background-color:black; } }
     </style>
@@ -50,7 +50,7 @@
             漢字しりとり
           </a>
           <div class="navbar-nav">
-            <select title="コース" id="courseOption" class="form-select form-select-sm">
+            <select title="コース" id="courseOption" class="form-select form-select-sm w-auto">
               <option value="/kanji-siritori/2/">ニ字 (Lv.1)</option>
               <option value="/kanji-siritori/" selected>全部 (Lv.2)</option>
             </select>
@@ -83,7 +83,128 @@
         <div class="col-md-8 notranslate">
           <div id="masu">
             <table id="table" class="mt-3 table table-striped table-bordered align-middle">
-              <tbody id="meiro"></tbody>
+              <tbody id="meiro">
+                <tr>
+                  <td>期</td>
+                  <td>勉</td>
+                  <td>由</td>
+                  <td>兄</td>
+                  <td>題</td>
+                  <td class="table-danger">航</td>
+                  <td>来</td>
+                  <td>品</td>
+                  <td class="table-danger">弁</td>
+                  <td>夏</td>
+                </tr>
+                <tr>
+                  <td>弟</td>
+                  <td>香</td>
+                  <td>念</td>
+                  <td>去</td>
+                  <td class="table-danger">賞</td>
+                  <td class="table-danger">運</td>
+                  <td>丸</td>
+                  <td>番</td>
+                  <td class="table-danger">護</td>
+                  <td>村</td>
+                </tr>
+                <tr>
+                  <td>借</td>
+                  <td>横</td>
+                  <td>旅</td>
+                  <td class="table-danger">地</td>
+                  <td class="table-danger">授</td>
+                  <td>走</td>
+                  <td>道</td>
+                  <td class="table-danger">少</td>
+                  <td class="table-danger">士</td>
+                  <td>老</td>
+                </tr>
+                <tr>
+                  <td>耳</td>
+                  <td>共</td>
+                  <td class="table-danger">出</td>
+                  <td class="table-danger">築</td>
+                  <td>持</td>
+                  <td>完</td>
+                  <td class="table-danger">薬</td>
+                  <td class="table-danger">額</td>
+                  <td>利</td>
+                  <td>光</td>
+                </tr>
+                <tr>
+                  <td>王</td>
+                  <td>底</td>
+                  <td class="table-danger">輸</td>
+                  <td>香</td>
+                  <td>登</td>
+                  <td>流</td>
+                  <td class="table-danger">師</td>
+                  <td>典</td>
+                  <td>徒</td>
+                  <td>豆</td>
+                </tr>
+                <tr>
+                  <td>昨</td>
+                  <td>客</td>
+                  <td class="table-danger">輸</td>
+                  <td>卒</td>
+                  <td>病</td>
+                  <td class="table-danger">布</td>
+                  <td class="table-danger">織</td>
+                  <td>路</td>
+                  <td>功</td>
+                  <td>昨</td>
+                </tr>
+                <tr>
+                  <td>氏</td>
+                  <td>勉</td>
+                  <td class="table-danger">運</td>
+                  <td class="table-danger">当</td>
+                  <td class="table-danger">適</td>
+                  <td class="table-danger">不</td>
+                  <td>記</td>
+                  <td>歯</td>
+                  <td>配</td>
+                  <td>全</td>
+                </tr>
+                <tr>
+                  <td>公</td>
+                  <td>崎</td>
+                  <td>竹</td>
+                  <td>院</td>
+                  <td>原</td>
+                  <td>色</td>
+                  <td>礼</td>
+                  <td>岸</td>
+                  <td>次</td>
+                  <td>曲</td>
+                </tr>
+                <tr>
+                  <td>所</td>
+                  <td>街</td>
+                  <td>軽</td>
+                  <td>船</td>
+                  <td>里</td>
+                  <td>炭</td>
+                  <td>週</td>
+                  <td>色</td>
+                  <td>望</td>
+                  <td>土</td>
+                </tr>
+                <tr>
+                  <td>橋</td>
+                  <td>語</td>
+                  <td>力</td>
+                  <td>賀</td>
+                  <td>官</td>
+                  <td>駅</td>
+                  <td>血</td>
+                  <td>料</td>
+                  <td>歩</td>
+                  <td>州</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -95,8 +216,8 @@
           <div class="card">
             <div class="card-header pt-4">熟語一覧</div>
             <div id="solvedPanel" class="card-body px-1 py-2 notranslate">
-              <button class="btn btn-light" type="button">クリアできたもの</button>
-              <button class="btn btn-secondary" type="button">できなかったもの</button>
+              <button class="btn btn-light m-1" type="button">クリアできたもの</button>
+              <button class="btn btn-secondary m-1" type="button">できなかったもの</button>
             </div>
           </div>
         </div>
@@ -114,9 +235,7 @@
       </div>
       <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a></div>
     </footer>
+    <div class="drop-inline-css d-none table-primary"></div>
     <script src="/kanji-siritori/index.js"></script>
-    <script>
-      _initGame()
-    </script>
   </body>
 </html>
