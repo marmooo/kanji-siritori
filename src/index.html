@@ -37,7 +37,7 @@
       #table { height:100%; table-layout:fixed; }
       #meiro { line-height:1.1; touch-action:manipulation; }
       td { padding: 0.25rem !important; cursor:pointer; }
-      html[data-bs-theme="dark"] .navbar-brand > img { filter: invert(1) hue-rotate(180deg); }
+      html[data-bs-theme="dark"] .favicon { filter: invert(1) hue-rotate(180deg); }
       html[data-bs-theme="dark"] .table-danger { filter: invert(0.9) hue-rotate(180deg); border-color:var(--bs-gray-700); }
       html[data-bs-theme="dark"] .table-primary { filter: invert(0.9) hue-rotate(180deg); border-color:var(--bs-gray-700); }
       html[data-bs-theme="dark"] .table-secondary { filter: invert(0.9) hue-rotate(180deg); border-color:var(--bs-gray-700); }
@@ -59,13 +59,13 @@
       <nav class="navbar navbar-expand">
         <div class="container flex-wrap">
           <a class="navbar-brand" href="/kanji-siritori/">
-            <img alt="漢字しりとり" src="/kanji-siritori/favicon/favicon.svg" width="32" height="32">
+            <img class="favicon" alt="漢字しりとり" src="/kanji-siritori/favicon/favicon.svg" width="32" height="32">
             漢字しりとり
           </a>
           <div class="navbar-nav">
             <select title="コース" id="courseOption" class="form-select form-select-sm w-auto">
-              <option value="/kanji-siritori/2/">ニ字 (Lv.1)</option>
-              <option value="/kanji-siritori/" selected>全部 (Lv.2)</option>
+              <option>ニ字 (Lv.1)</option>
+              <option selected>全部 (Lv.2)</option>
             </select>
             <select title="学年" id="levelOption" class="form-select form-select-sm ms-1">
               <option disabled>小1</option>
