@@ -10,32 +10,41 @@ function smallToBig(str) {
   }
 }
 
-async function build(yomiDict, outputFile, gram, threshold) {
-  const siritori = new Array(10);
-  for (let i = 0; i < 10; i++) {
+function setSiritori(siritori, i, word) {
+  const yomis = yomiDict.get(word);
+  if (yomis) {
+    const yomi = yomis[0];
+    const from = smallToBig(yomi[0]);
+    const to = smallToBig(yomi[yomi.length - 1]);
+    if (to != "ン" || to != "ー") {
+      const datum = word + "|" + to;
+      if (siritori[i - 1][from]) {
+        siritori[i - 1][from].push(datum);
+      } else {
+        siritori[i - 1][from] = [datum];
+      }
+    }
+  }
+}
+
+async function build(outputFile, gram, threshold) {
+  const siritori = new Array(12);
+  for (let i = 0; i < 12; i++) {
     siritori[i] = {};
   }
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 12; i++) {
     const fileReader = await Deno.open(`graded-idioms-ja/dist/${i}.csv`);
     for await (const line of readLines(fileReader)) {
       const arr = line.split(",");
       const word = arr[0];
       const count = parseInt(arr[1]);
-      if (word.length == gram && count >= threshold) {
-        const yomis = yomiDict.get(word);
-        if (yomis) {
-          const yomi = yomis[0];
-          const from = smallToBig(yomi[0]);
-          const to = smallToBig(yomi[yomi.length - 1]);
-          if (to != "ン" || to != "ー") {
-            const datum = word + "|" + to;
-            if (siritori[i - 1][from]) {
-              siritori[i - 1][from].push(datum);
-            } else {
-              siritori[i - 1][from] = [datum];
-            }
-          }
+      if (word.length != gram) continue;
+      if (i <= 9) {
+        if (threshold <= count) {
+          setSiritori(siritori, i, word);
         }
+      } else {
+        setSiritori(siritori, i, word);
       }
     }
   }
@@ -44,5 +53,5 @@ async function build(yomiDict, outputFile, gram, threshold) {
 
 const threshold = 100000;
 const yomiDict = await YomiDict.load("yomi-dict/yomi.csv");
-await build(yomiDict, "src/2.json", 2, threshold);
-await build(yomiDict, "src/3.json", 3, threshold);
+await build("src/2.json", 2, threshold);
+await build("src/3.json", 3, threshold);
