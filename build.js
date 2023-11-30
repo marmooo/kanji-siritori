@@ -11,8 +11,9 @@ function smallToBig(str) {
 }
 
 function setSiritori(siritori, i, word) {
-  const yomis = yomiDict.get(word);
+  let yomis = yomiDict.get(word);
   if (yomis) {
+    yomis = yomis.filter((yomi) => yomi.at(-1) != "っ");
     const yomi = yomis[0];
     const from = smallToBig(yomi[0]);
     const to = smallToBig(yomi[yomi.length - 1]);
