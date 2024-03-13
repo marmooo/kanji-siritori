@@ -152,27 +152,27 @@ function showAnswer() {
   answerButton.classList.add("d-none");
 }
 
-function _getNeighborText(trs, x, y, direction) {
-  let text = trs[x].children[y].textContent;
-  if (direction == 1) {
-    if (meiro[x - 1][y] != 0) {
-      text += trs[x - 1].children[y].textContent;
-    }
-  } else if (direction == 2) {
-    if (meiro[x + 1][y] != 0) {
-      text += trs[x + 1].children[y].textContent;
-    }
-  } else if (direction == 3) {
-    if (meiro[x][y - 1] != 0) {
-      text += trs[x].children[y - 1].textContent;
-    }
-  } else {
-    if (meiro[x][y + 1] != 0) {
-      text += trs[x].children[y + 1].textContent;
-    }
-  }
-  return text;
-}
+// function _getNeighborText(trs, x, y, direction) {
+//   let text = trs[x].children[y].textContent;
+//   if (direction == 1) {
+//     if (meiro[x - 1][y] != 0) {
+//       text += trs[x - 1].children[y].textContent;
+//     }
+//   } else if (direction == 2) {
+//     if (meiro[x + 1][y] != 0) {
+//       text += trs[x + 1].children[y].textContent;
+//     }
+//   } else if (direction == 3) {
+//     if (meiro[x][y - 1] != 0) {
+//       text += trs[x].children[y - 1].textContent;
+//     }
+//   } else {
+//     if (meiro[x][y + 1] != 0) {
+//       text += trs[x].children[y + 1].textContent;
+//     }
+//   }
+//   return text;
+// }
 
 function startGame() {
   while (solvedPanel.firstChild) {
@@ -308,17 +308,6 @@ function paint(x, y, direction, n) {
     }
     return [x, y + n - 1];
   }
-}
-
-function _p() {
-  let str = "";
-  for (let i = 0; i < size; i++) {
-    for (let j = 0; j < size; j++) {
-      str += meiro[i][j];
-    }
-    str += "\n";
-  }
-  console.log(str);
 }
 
 function generateGame() {
@@ -511,7 +500,7 @@ fetchData();
 
 const meiroObj = document.getElementById("meiro");
 resizeFontSize(meiroObj);
-window.addEventListener("resize", () => {
+globalThis.addEventListener("resize", () => {
   resizeFontSize(meiroObj);
 });
 
