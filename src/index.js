@@ -152,28 +152,6 @@ function showAnswer() {
   answerButton.classList.add("d-none");
 }
 
-// function _getNeighborText(trs, x, y, direction) {
-//   let text = trs[x].children[y].textContent;
-//   if (direction == 1) {
-//     if (meiro[x - 1][y] != 0) {
-//       text += trs[x - 1].children[y].textContent;
-//     }
-//   } else if (direction == 2) {
-//     if (meiro[x + 1][y] != 0) {
-//       text += trs[x + 1].children[y].textContent;
-//     }
-//   } else if (direction == 3) {
-//     if (meiro[x][y - 1] != 0) {
-//       text += trs[x].children[y - 1].textContent;
-//     }
-//   } else {
-//     if (meiro[x][y + 1] != 0) {
-//       text += trs[x].children[y + 1].textContent;
-//     }
-//   }
-//   return text;
-// }
-
 function startGame() {
   while (solvedPanel.firstChild) {
     solvedPanel.removeChild(solvedPanel.firstChild);
