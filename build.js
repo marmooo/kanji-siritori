@@ -1,4 +1,4 @@
-import { readLines } from "https://deno.land/std/io/mod.ts";
+import { TextLineStream } from "jsr:@std/streams/text-line-stream";
 import { YomiDict } from "npm:yomi-dict@0.1.8";
 
 function smallToBig(str) {
@@ -34,8 +34,11 @@ async function build(outputFile, gram, threshold) {
     siritori[i] = {};
   }
   for (let i = 1; i <= 12; i++) {
-    const fileReader = await Deno.open(`graded-idioms-ja/dist/${i}.csv`);
-    for await (const line of readLines(fileReader)) {
+    const file = await Deno.open(`graded-idioms-ja/dist/${i}.csv`);
+    const lineStream = file.readable
+      .pipeThrough(new TextDecoderStream())
+      .pipeThrough(new TextLineStream());
+    for await (const line of lineStream) {
       const arr = line.split(",");
       const word = arr[0];
       const count = parseInt(arr[1]);
