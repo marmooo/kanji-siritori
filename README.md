@@ -4,8 +4,11 @@
 
 ## Installation
 
-- install [marmooo/graded-idioms-ja](https://github.com/marmooo/graded-idioms-ja) licensed under the CC-BY 4.0
-- install [marmooo/yomi-dict](https://github.com/marmooo/yomi-dict) licensed under the Apache-2.0
+- install
+  [marmooo/graded-idioms-ja](https://github.com/marmooo/graded-idioms-ja)
+  licensed under the CC-BY-4.0
+- install [marmooo/yomi-dict](https://github.com/marmooo/yomi-dict) licensed
+  under the Apache-2.0
 
 ## Build
 
