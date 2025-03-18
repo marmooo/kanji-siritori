@@ -13,7 +13,7 @@
 ## Build
 
 ```
-deno run -RWE build.js
+deno run -RWE build-dict.js
 bash build.sh
 ```
 
