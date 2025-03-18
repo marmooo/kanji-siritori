@@ -1,5 +1,5 @@
 import { TextLineStream } from "jsr:@std/streams/text-line-stream";
-import { YomiDict } from "npm:yomi-dict@0.2.0";
+import { YomiDict } from "npm:yomi-dict@0.2.1";
 
 function smallToBig(str) {
   const pos = "ァィゥェォヵヶッャュョヮ".indexOf(str);
