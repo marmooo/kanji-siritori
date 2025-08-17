@@ -442,17 +442,16 @@ function getIdioms() {
   return list;
 }
 
-function fetchData() {
+async function initProblems() {
   const urls = ["/kanji-siritori/2.json", "/kanji-siritori/3.json"];
-  return Promise.all(urls.map((url) =>
-    fetch(url)
-      .then((response) => response.json())
-  ))
-    .then((data) => {
-      problems.push(data[0]);
-      problems.push(data[1]);
-      initGame();
-    });
+  const data = await Promise.all(
+    urls.map(async (url) => {
+      const response = await fetch(url);
+      return response.json();
+    })
+  );
+  problems.push(...data);
+  initGame();
 }
 
 function initGame() {
@@ -474,7 +473,7 @@ function initGame() {
 }
 
 const problems = [];
-fetchData();
+initProblems();
 
 const meiroObj = document.getElementById("meiro");
 resizeFontSize(meiroObj);
