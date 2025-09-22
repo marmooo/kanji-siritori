@@ -1,4 +1,5 @@
 import { JKAT } from "https://cdn.jsdelivr.net/npm/@marmooo/kanji@0.1.2/esm/jkat.js";
+import { createWorker } from "https://cdn.jsdelivr.net/npm/emoji-particle@0.0.4/+esm";
 
 const remSize = parseInt(getComputedStyle(document.documentElement).fontSize);
 // 何でも繋がってしまう漢字は意図的に削除 (一二三四五六七八九十百千上下左右)
@@ -8,6 +9,7 @@ const words1 = Array.from(
 const wordsList = [words1, ...JKAT.slice(1)];
 const size = 10;
 const meiro = new Array(12);
+const emojiParticle = initEmojiParticle();
 let score = 0;
 let counter = 0;
 let processed;
@@ -44,6 +46,30 @@ function shuffle(array) {
     [array[k], array[i - 1]] = [array[i - 1], array[k]];
   }
   return array;
+}
+
+function initEmojiParticle() {
+  const canvas = document.createElement("canvas");
+  Object.assign(canvas.style, {
+    position: "fixed",
+    pointerEvents: "none",
+    top: "0px",
+    left: "0px",
+  });
+  canvas.width = document.documentElement.clientWidth;
+  canvas.height = document.documentElement.clientHeight;
+  document.body.prepend(canvas);
+
+  const offscreen = canvas.transferControlToOffscreen();
+  const worker = createWorker();
+  worker.postMessage({ type: "init", canvas: offscreen }, [offscreen]);
+
+  globalThis.addEventListener("resize", () => {
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    worker.postMessage({ type: "resize", width, height });
+  });
+  return { canvas, offscreen, worker };
 }
 
 function calcReply() {
@@ -90,6 +116,7 @@ function prependIdiomLink(idiom, correct) {
 }
 
 function showSolved(reply, hinted) {
+  let currScore = 0;
   const trs = document.getElementById("meiro").children;
   let j = 0;
   let k = 0;
@@ -99,8 +126,7 @@ function showSolved(reply, hinted) {
       if (reply[i] == idiom[k]) {
         if (k == idiom.length - 1) {
           prependIdiomLink(idiom, true);
-          score += idiom.length;
-          document.getElementById("score").textContent = score;
+          currScore += idiom.length;
         }
         processed[i] = true;
       } else {
@@ -125,6 +151,18 @@ function showSolved(reply, hinted) {
       k += 1;
     }
   }
+  for (let i = 0; i < Math.floor(currScore / 3); i++) {
+    emojiParticle.worker.postMessage({
+      type: "spawn",
+      options: {
+        particleType: "popcorn",
+        originX: Math.random() * emojiParticle.canvas.width,
+        originY: Math.random() * emojiParticle.canvas.height,
+      },
+    });
+  }
+  score += currScore;
+  document.getElementById("score").textContent = score;
 }
 
 function showHint() {
