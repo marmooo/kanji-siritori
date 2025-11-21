@@ -116,10 +116,10 @@ function prependIdiomLink(idiom, correct) {
 }
 
 function showSolved(reply, hinted) {
-  let currScore = 0;
   const trs = document.getElementById("meiro").children;
   let j = 0;
   let k = 0;
+  let currScore = 0;
   for (let i = 0; i < counter; i++) {
     const idiom = idioms[j];
     if (!processed[i]) {
